@@ -31,12 +31,12 @@ class MenuService
 
     public function getById(int $id)
     {
-        return $this->repository->with(['modifier', 'city'])->find($id);
+        return $this->repository->with(['items', 'modifier', 'city'])->find($id);
     }
 
     public function getAll()
     {
-        return $this->repository->with(['modifier', 'city'])->all();
+        return $this->repository->with(['items', 'modifier', 'city'])->all();
     }
 
 }

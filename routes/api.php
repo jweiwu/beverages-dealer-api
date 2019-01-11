@@ -24,7 +24,8 @@ Route::group(['prefix' => 'auth'], function () {
 
 Route::get('/cities', 'CityController@index');
 
-Route::group(['prefix' => 'menus'], function () {
-    Route::resource('/', MenuController::class);
+Route::resource('/menus', MenuController::class);
+
+Route::group(['prefix' => 'menus/{menu_id}'], function () {
     Route::resource('/items', MenuItemController::class)->middleware('auth:api');
 });

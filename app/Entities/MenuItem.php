@@ -2,6 +2,7 @@
 
 namespace App\Entities;
 
+use App\Entities\Menu;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Prettus\Repository\Contracts\Transformable;
@@ -22,8 +23,13 @@ class MenuItem extends Model implements Transformable
      *
      * @var array
      */
-    protected $fillable = [];
+    protected $fillable = ['menu_id', 'category', 'product', 'price', 'hot_drink', 'adjust_ice', 'adjust_sugar', 'remarks'];
 
     protected $dates = ['deleted_at'];
+
+    public function menu()
+    {
+        return $this->belongsTo(Menu::class);
+    }
 
 }

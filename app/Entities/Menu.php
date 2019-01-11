@@ -26,6 +26,8 @@ class Menu extends Model implements Transformable
         'name', 'city_id', 'address', 'phone_number', 'description', 'condition', 'remarks', 'modifier_id',
     ];
 
+    protected $dates = ['deleted_at'];
+
     public function city()
     {
         return $this->belongsTo(City::class);
@@ -36,6 +38,9 @@ class Menu extends Model implements Transformable
         return $this->belongsTo(User::class);
     }
 
-    protected $dates = ['deleted_at'];
+    public function items()
+    {
+        return $this->hasMany(MenuItem::class);
+    }
 
 }

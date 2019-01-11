@@ -2,11 +2,10 @@
 
 namespace App\Repositories;
 
-use Prettus\Repository\Eloquent\BaseRepository;
-use Prettus\Repository\Criteria\RequestCriteria;
-use App\Repositories\MenuItemRepository;
 use App\Entities\MenuItem;
-use App\Validators\MenuItemValidator;
+use App\Repositories\MenuItemRepository;
+use Prettus\Repository\Criteria\RequestCriteria;
+use Prettus\Repository\Eloquent\BaseRepository;
 
 /**
  * Class MenuItemRepositoryEloquent.
@@ -25,8 +24,6 @@ class MenuItemRepositoryEloquent extends BaseRepository implements MenuItemRepos
         return MenuItem::class;
     }
 
-    
-
     /**
      * Boot up the repository, pushing criteria
      */
@@ -34,5 +31,5 @@ class MenuItemRepositoryEloquent extends BaseRepository implements MenuItemRepos
     {
         $this->pushCriteria(app(RequestCriteria::class));
     }
-    
+
 }

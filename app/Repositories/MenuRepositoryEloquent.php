@@ -31,4 +31,5 @@ class MenuRepositoryEloquent extends BaseRepository implements MenuRepository
     {
         $this->pushCriteria(app(RequestCriteria::class));
     }
+
 }

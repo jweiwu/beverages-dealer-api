@@ -25,6 +25,7 @@ class Menu extends JsonResource
             'updated_at' => $this->updated_at->diffForHumans(),
             'modifier' => $this->modifier,
             'city' => $this->city,
+            'items' => $this->items,
         ];
     }
 }
