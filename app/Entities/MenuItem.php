@@ -32,4 +32,9 @@ class MenuItem extends Model implements Transformable
         return $this->belongsTo(Menu::class);
     }
 
+    public function orderDetails()
+    {
+        return $this->hasMany(OrderDetail::class);
+    }
+
 }

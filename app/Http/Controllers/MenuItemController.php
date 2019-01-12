@@ -13,6 +13,13 @@ class MenuItemController extends Controller
     public function __construct(MenuItemService $menuItemService)
     {
         $this->menuItemService = $menuItemService;
+        $this->middleware('auth:api', ['except' => ['index', 'show']]);
+    }
+
+    public function index(int $menu_id)
+    {
+        $items = $this->menuItemService->getByMenu($menu_id);
+        return MenuItemResource::collection($items);
     }
 
     public function store(Request $request, int $menu_id)

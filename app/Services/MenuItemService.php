@@ -30,6 +30,6 @@ class MenuItemService
 
     public function getByMenu(int $menu_id)
     {
-        return $this->repository->with(['menu'])->findByField('menu_id', $menu_id);
+        return $this->repository->findByField('menu_id', $menu_id);
     }
 }

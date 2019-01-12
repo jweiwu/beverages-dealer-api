@@ -20,6 +20,23 @@ class OrderDetail extends Model implements Transformable
      *
      * @var array
      */
-    protected $fillable = [];
+    protected $fillable = [
+        'order_id', 'menu_item_id', 'amount', 'hot', 'ice', 'sugar', 'remarks', 'user_id',
+    ];
+
+    public function order()
+    {
+        return $this->belongsTo(Order::class);
+    }
+
+    public function item()
+    {
+        return $this->belongsTo(MenuItem::class, 'menu_item_id', 'id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
 }
