@@ -43,4 +43,9 @@ class Order extends Model implements Transformable
         return $this->hasMany(OrderDetail::class);
     }
 
+    public function comments()
+    {
+        return $this->morphMany(Comment::class, 'commentable');
+    }
+
 }

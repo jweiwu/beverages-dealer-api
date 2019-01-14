@@ -32,6 +32,11 @@ class User extends Authenticatable implements JWTSubject
 
     protected $dates = ['deleted_at'];
 
+    public function comments()
+    {
+        return $this->morphMany(Comment::class, 'commentable');
+    }
+
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.
      *

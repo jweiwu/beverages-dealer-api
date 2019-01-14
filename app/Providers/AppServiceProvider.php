@@ -29,5 +29,6 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind("App\Repositories\MenuItemRepository", "App\Repositories\MenuItemRepositoryEloquent");
         $this->app->bind("App\Repositories\OrderRepository", "App\Repositories\OrderRepositoryEloquent");
         $this->app->bind("App\Repositories\OrderDetailRepository", "App\Repositories\OrderDetailRepositoryEloquent");
+        $this->app->bind("App\Repositories\CommentRepository", "App\Repositories\CommentRepositoryEloquent");
     }
 }

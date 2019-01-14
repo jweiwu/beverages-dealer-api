@@ -22,8 +22,18 @@ class Comment extends Model implements Transformable
      *
      * @var array
      */
-    protected $fillable = [];
+    protected $fillable = ['comments', 'commentable_id', 'commentable_type', 'user_id'];
 
     protected $dates = ['deleted_at'];
+
+    public function commentable()
+    {
+        return $this->morphTo();
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
 }

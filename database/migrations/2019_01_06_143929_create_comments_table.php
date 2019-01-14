@@ -15,6 +15,9 @@ class CreateCommentsTable extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->increments('id');
+            $table->text('comments');
+            // $table->morphs('taggable');
+            // Adds taggable_id UNSIGNED BIGINT and taggable_type VARCHAR equivalent columns.
             $table->integer('commentable_id')->unsigned();
             $table->string('commentable_type', 255);
             $table->integer('user_id')->unsigned()->index();

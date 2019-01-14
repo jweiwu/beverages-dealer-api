@@ -43,4 +43,9 @@ class Menu extends Model implements Transformable
         return $this->hasMany(MenuItem::class);
     }
 
+    public function comments()
+    {
+        return $this->morphMany(Comment::class, 'commentable');
+    }
+
 }

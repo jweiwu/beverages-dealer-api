@@ -26,6 +26,7 @@ class Menu extends JsonResource
             'modifier' => $this->modifier,
             'city' => $this->city,
             'items' => $this->items,
+            'comments' => $this->comments,
         ];
     }
 }
