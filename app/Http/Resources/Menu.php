@@ -27,6 +27,7 @@ class Menu extends JsonResource
             'city' => $this->city,
             'items' => $this->items,
             'comments' => $this->comments,
+            'likes' => $this->likes,
         ];
     }
 }

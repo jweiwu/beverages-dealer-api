@@ -28,12 +28,16 @@ Route::resource('/menus', MenuController::class);
 
 Route::group(['prefix' => 'menus/{menu_id}'], function () {
     Route::resource('/items', MenuItemController::class);
-    Route::resource('/comments', MenuCommentController::class)->middleware('auth:api');
+    Route::resource('/comments', CommentController::class)->middleware('auth:api');
+    Route::post('/likes', 'LikeController@store')->middleware('auth:api');
+    Route::delete('/likes', 'LikeController@destroy')->middleware('auth:api');
 });
 
 Route::resource('/orders', OrderController::class);
 
 Route::group(['prefix' => 'orders/{order_id}'], function () {
     Route::resource('/details', OrderDetailController::class);
-    Route::resource('/comments', OrderCommentController::class)->middleware('auth:api');
+    Route::resource('/comments', CommentController::class)->middleware('auth:api');
+    Route::post('/likes', 'LikeController@store')->middleware('auth:api');
+    Route::delete('/likes', 'LikeController@destroy')->middleware('auth:api');
 });

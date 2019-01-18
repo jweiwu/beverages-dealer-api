@@ -3,9 +3,11 @@
 namespace App\Services;
 
 use App\Repositories\CommentRepository;
+use App\Traits\ServiceExtensions;
 
 class CommentService
 {
+    use ServiceExtensions;
     protected $repository;
 
     public function __construct(CommentRepository $repository)
@@ -13,10 +15,10 @@ class CommentService
         $this->repository = $repository;
     }
 
-    public function create(array $attributes, string $commentable_type, int $user_id)
+    public function create(array $attributes, string $path, int $user_id)
     {
         $attributes += [
-            'commentable_type' => $commentable_type,
+            'commentable_type' => $this->parsePath($path),
             'user_id' => $user_id,
         ];
         return $this->repository->create($attributes);
@@ -31,4 +33,5 @@ class CommentService
     {
         $this->repository->delete($id);
     }
+
 }

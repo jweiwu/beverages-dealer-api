@@ -6,19 +6,36 @@ use App\Entities\User;
 use App\Http\Requests\UserLoginRequest;
 use App\Http\Requests\UserRegisterRequest;
 use App\Http\Resources\User as UserResource;
+use App\Services\AuthService;
 
 class AuthController extends Controller
 {
+    protected $authService;
+
+    public function __construct(AuthService $authService)
+    {
+        $this->authService = $authService;
+    }
+
     public function login(UserLoginRequest $request)
     {
         $credentials = $request->only(['email', 'password']);
 
-        if (!$token = auth()->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+        // if (!$token = auth()->attempt($credentials)) {
+        //     return response()->json(['error' => 'Unauthorized'], 401);
+        // }
+
+        // $user = new UserResource(auth()->user());
+        // return $user->additional(['meta' => ['token' => $token]]);
+
+        $result = $this->authService->login($credentials);
+
+        if ($result['success']) {
+            return $result['data'];
+        } else {
+            return response()->json($result['data'], 401);
         }
 
-        $user = new UserResource(auth()->user());
-        return $user->additional(['meta' => ['token' => $token]]);
     }
 
     public function register(UserRegisterRequest $request)

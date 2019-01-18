@@ -25,6 +25,8 @@ class Order extends JsonResource
             'details' => OrderDetailResource::collection($this->details),
             'menu' => $this->menu,
             'user' => $this->user,
+            'comments' => $this->comments,
+            'likes' => $this->likes,
         ];
     }
 }

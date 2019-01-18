@@ -24,6 +24,8 @@ class Comment extends Model implements Transformable
      */
     protected $fillable = ['comments', 'commentable_id', 'commentable_type', 'user_id'];
 
+    protected $hidden = ['commentable_type', 'deleted_at'];
+
     protected $dates = ['deleted_at'];
 
     public function commentable()

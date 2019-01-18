@@ -37,6 +37,11 @@ class User extends Authenticatable implements JWTSubject
         return $this->morphMany(Comment::class, 'commentable');
     }
 
+    public function likes()
+    {
+        return $this->morphMany(Like::class, 'likeable');
+    }
+
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.
      *
