@@ -6,46 +6,33 @@ use App\Entities\User;
 use App\Http\Requests\UserLoginRequest;
 use App\Http\Requests\UserRegisterRequest;
 use App\Http\Resources\User as UserResource;
-use App\Services\AuthService;
+use App\Services\UserService;
 
 class AuthController extends Controller
 {
-    protected $authService;
+    protected $userService;
 
-    public function __construct(AuthService $authService)
+    public function __construct(UserService $userService)
     {
-        $this->authService = $authService;
+        $this->userService = $userService;
     }
 
     public function login(UserLoginRequest $request)
     {
         $credentials = $request->only(['email', 'password']);
 
-        // if (!$token = auth()->attempt($credentials)) {
-        //     return response()->json(['error' => 'Unauthorized'], 401);
-        // }
-
-        // $user = new UserResource(auth()->user());
-        // return $user->additional(['meta' => ['token' => $token]]);
-
-        $result = $this->authService->login($credentials);
-
-        if ($result['success']) {
-            return $result['data'];
-        } else {
-            return response()->json($result['data'], 401);
+        if (!$token = auth()->attempt($credentials)) {
+            return response()->json(['error' => 'Unauthorized'], 401);
         }
+
+        $user = new UserResource(auth()->user());
+        return $user->additional(['meta' => ['token' => $token]]);
 
     }
 
     public function register(UserRegisterRequest $request)
     {
-        $instance = User::create([
-            'email' => $request->email,
-            'name' => $request->name,
-            'password' => bcrypt($request->password),
-        ]);
-
+        $user = $this->userService->create($instance);
         $credentials = $request->only(['email', 'password']);
 
         if (!$token = auth()->attempt($credentials)) {

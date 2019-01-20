@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\MenuRequest;
 use App\Http\Resources\Menu as MenuResource;
 use App\Services\MenuService;
-use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class MenuController extends Controller
@@ -34,7 +34,7 @@ class MenuController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(MenuRequest $request)
     {
         $instance = $request->only(['name', 'city_id', 'address', 'phone_number', 'description', 'condition', 'remarks']);
         $menu = $this->menuService->create($instance, auth()->user());
@@ -61,7 +61,7 @@ class MenuController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, int $id)
+    public function update(MenuRequest $request, int $id)
     {
         $instance = $request->only(['name', 'city_id', 'address', 'phone_number', 'description', 'condition', 'remarks']);
         $menu = $this->menuService->update($instance, $id, auth()->user());

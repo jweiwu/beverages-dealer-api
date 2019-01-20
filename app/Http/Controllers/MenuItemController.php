@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\MenuItemRequest;
 use App\Http\Resources\MenuItem as MenuItemResource;
 use App\Services\MenuItemService;
-use Illuminate\Http\Request;
 
 class MenuItemController extends Controller
 {
@@ -22,15 +22,15 @@ class MenuItemController extends Controller
         return MenuItemResource::collection($items);
     }
 
-    public function store(Request $request, int $menu_id)
+    public function store(MenuItemRequest $request, int $menu_id)
     {
-        $instance = $request->only(['menu_id', 'category', 'product', 'price', 'hot_drink', 'adjust_ice', 'adjust_sugar', 'remarks']);
-        $item = $this->menuItemService->create($instance);
+        $instance = $request->only(['category', 'product', 'price', 'hot_drink', 'adjust_ice', 'adjust_sugar', 'remarks']);
+        $item = $this->menuItemService->create($instance + ['menu_id' => $menu_id]);
         $resource = new MenuItemResource($item);
         return $resource->response()->setStatusCode(201);
     }
 
-    public function update(Request $request, int $menu_id, int $id)
+    public function update(MenuItemRequest $request, int $menu_id, int $id)
     {
         $instance = $request->only(['category', 'product', 'price', 'hot_drink', 'adjust_ice', 'adjust_sugar', 'remarks']);
         $item = $this->menuItemService->update($instance, $id);
