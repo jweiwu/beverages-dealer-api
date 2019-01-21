@@ -28,6 +28,11 @@ class MenuItemService
         $this->repository->delete($id);
     }
 
+    public function getById(int $id)
+    {
+        return $this->repository->find($id);
+    }
+
     public function getByMenu(int $menu_id)
     {
         return $this->repository->findByField('menu_id', $menu_id);

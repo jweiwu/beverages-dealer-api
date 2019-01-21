@@ -15,22 +15,22 @@ class LikeService
         $this->repository = $repository;
     }
 
-    public function create(int $likeable_id, string $path, int $user_id)
+    public function create(int $likeable_id, string $path)
     {
         $attributes = [
             'likeable_id' => $likeable_id,
             'likeable_type' => $this->parsePath($path),
-            'user_id' => $user_id,
+            'user_id' => auth()->user()->id,
         ];
         return $this->repository->create($attributes);
     }
 
-    public function delete(int $likeable_id, string $path, int $user_id)
+    public function delete(int $likeable_id, string $path)
     {
         $attributes = [
             'likeable_id' => $likeable_id,
             'likeable_type' => $this->parsePath($path),
-            'user_id' => $user_id,
+            'user_id' => auth()->user()->id,
         ];
         $this->repository->deleteWhere($attributes);
     }

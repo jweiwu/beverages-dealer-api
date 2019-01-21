@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\OrderRequest;
 use App\Http\Resources\Order as OrderResource;
 use App\Services\OrderService;
-use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
@@ -24,7 +24,8 @@ class OrderController extends Controller
     public function index()
     {
         $orders = $this->orderService->getAll();
-        return OrderResource::collection($orders);
+        // return OrderResource::collection($orders);
+        return response()->json($orders);
     }
 
     /**
@@ -33,10 +34,10 @@ class OrderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(OrderRequest $request)
     {
         $instance = $request->only(['menu_id', 'contact_number', 'location', 'arrive_at', 'deadline', 'limit_amount']);
-        $order = $this->orderService->create($instance, auth()->user());
+        $order = $this->orderService->create($instance);
         $resource = new OrderResource($order);
         return $resource->response()->setStatusCode(201);
     }
@@ -60,10 +61,10 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, int $id)
+    public function update(OrderRequest $request, int $id)
     {
-        $instance = $request->only(['contact_number', 'location', 'arrive_at', 'deadline', 'limit_amount']);
-        $order = $this->orderService->update($instance, $id, auth()->user());
+        $instance = $request->only(['menu_id', 'contact_number', 'location', 'arrive_at', 'deadline', 'limit_amount']);
+        $order = $this->orderService->update($instance, $id);
         return response()->noContent();
     }
 

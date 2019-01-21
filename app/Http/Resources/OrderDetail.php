@@ -21,7 +21,7 @@ class OrderDetail extends JsonResource
             'ice' => $this->ice,
             'sugar' => $this->sugar,
             'remarks' => $this->remarks,
-            // 'order' => $this->order,
+            'order' => $this->order,
             'item' => $this->item,
             'user' => $this->user,
         ];

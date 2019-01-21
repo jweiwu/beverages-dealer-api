@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources;
 
-use App\Http\Resources\OrderDetail as OrderDetailResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class Order extends JsonResource
@@ -19,10 +18,10 @@ class Order extends JsonResource
             'id' => $this->id,
             'contact_number' => $this->contact_number,
             'location' => $this->location,
-            'arrive_at' => $this->arrive_at->diffForHumans(),
-            'deadline' => $this->deadline->diffForHumans(),
+            'arrive_at' => $this->arrive_at ? $this->arrive_at->diffForHumans() : '-',
+            'deadline' => $this->deadline ? $this->deadline->diffForHumans() : '-',
             'limit_amount' => $this->limit_amount,
-            'details' => OrderDetailResource::collection($this->details),
+            'details' => $this->details,
             'menu' => $this->menu,
             'user' => $this->user,
             'comments' => $this->comments,

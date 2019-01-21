@@ -14,14 +14,14 @@ class OrderService
         $this->repository = $repository;
     }
 
-    public function create(array $attributes, User $user)
+    public function create(array $attributes)
     {
-        return $this->repository->create($attributes + ['user_id' => $user->id]);
+        return $this->repository->create($attributes + ['user_id' => auth()->user()->id]);
     }
 
-    public function update(array $attributes, int $id, User $user)
+    public function update(array $attributes, int $id)
     {
-        return $this->repository->update($attributes + ['user_id' => $user->id], $id);
+        return $this->repository->update($attributes, $id);
     }
 
     public function delete(int $id)

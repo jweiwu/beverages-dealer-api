@@ -19,7 +19,8 @@ class MenuItemController extends Controller
     public function index(int $menu_id)
     {
         $items = $this->menuItemService->getByMenu($menu_id);
-        return MenuItemResource::collection($items);
+        // return MenuItemResource::collection($items);
+        return response()->json($items);
     }
 
     public function store(MenuItemRequest $request, int $menu_id)
@@ -28,6 +29,12 @@ class MenuItemController extends Controller
         $item = $this->menuItemService->create($instance + ['menu_id' => $menu_id]);
         $resource = new MenuItemResource($item);
         return $resource->response()->setStatusCode(201);
+    }
+
+    public function show(int $menu_id, int $id)
+    {
+        $item = $this->menuItemService->getById($id);
+        return new MenuItemResource($item);
     }
 
     public function update(MenuItemRequest $request, int $menu_id, int $id)

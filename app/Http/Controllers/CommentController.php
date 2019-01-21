@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CommentRequest;
 use App\Services\CommentService;
 use Illuminate\Http\Request;
 
@@ -14,14 +15,29 @@ class CommentController extends Controller
         $this->commentService = $commentService;
     }
 
-    public function store(Request $request, int $commentable_id)
+    public function index(Request $request, int $commentable_id)
     {
-        $instance = $request->only(['comments']);
-        $comment = $this->commentService->create($instance + ['commentable_id' => $commentable_id], $request->path(), auth()->user()->id);
+        $comments = $this->commentService->getByType($commentable_id, $request->path());
+        return response()->json($comments);
+    }
+
+    public function store(CommentRequest $request, int $commentable_id)
+    {
+        $instance = [
+            'comments' => $request->input('comments'),
+            'commentable_id' => $commentable_id,
+        ];
+        $comment = $this->commentService->create($instance, $request->path());
         return response()->json($comment, 201);
     }
 
-    public function update(Request $request, int $commentable_id, int $id)
+    public function show(int $commentable_id, int $id)
+    {
+        $comment = $this->commentService->getById($id);
+        return response()->json($comment);
+    }
+
+    public function update(CommentRequest $request, int $commentable_id, int $id)
     {
         $commentString = $request->input('comments');
         $item = $this->commentService->update($commentString, $id);

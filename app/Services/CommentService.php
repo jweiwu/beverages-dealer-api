@@ -15,11 +15,11 @@ class CommentService
         $this->repository = $repository;
     }
 
-    public function create(array $attributes, string $path, int $user_id)
+    public function create(array $attributes, string $path)
     {
         $attributes += [
             'commentable_type' => $this->parsePath($path),
-            'user_id' => $user_id,
+            'user_id' => auth()->user()->id,
         ];
         return $this->repository->create($attributes);
     }
@@ -32,6 +32,19 @@ class CommentService
     public function delete(int $id)
     {
         $this->repository->delete($id);
+    }
+
+    public function getById(int $id)
+    {
+        return $this->repository->find($id);
+    }
+
+    public function getByType(int $id, string $path)
+    {
+        return $this->repository->findWhere([
+            'commentable_id' => $id,
+            'commentable_type' => $this->parsePath($path),
+        ]);
     }
 
 }

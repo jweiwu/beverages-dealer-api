@@ -25,7 +25,8 @@ class MenuController extends Controller
     public function index()
     {
         $menus = $this->menuService->getAll();
-        return MenuResource::collection($menus);
+        // return MenuResource::collection($menus);
+        return response()->json($menus);
     }
 
     /**
@@ -37,7 +38,7 @@ class MenuController extends Controller
     public function store(MenuRequest $request)
     {
         $instance = $request->only(['name', 'city_id', 'address', 'phone_number', 'description', 'condition', 'remarks']);
-        $menu = $this->menuService->create($instance, auth()->user());
+        $menu = $this->menuService->create($instance);
         $resource = new MenuResource($menu);
         return $resource->response()->setStatusCode(201);
     }
@@ -64,7 +65,7 @@ class MenuController extends Controller
     public function update(MenuRequest $request, int $id)
     {
         $instance = $request->only(['name', 'city_id', 'address', 'phone_number', 'description', 'condition', 'remarks']);
-        $menu = $this->menuService->update($instance, $id, auth()->user());
+        $menu = $this->menuService->update($instance, $id);
         return response()->noContent();
     }
 

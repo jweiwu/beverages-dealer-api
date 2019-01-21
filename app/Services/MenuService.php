@@ -14,14 +14,14 @@ class MenuService
         $this->repository = $repository;
     }
 
-    public function create(array $attributes, User $user)
+    public function create(array $attributes)
     {
-        return $this->repository->create($attributes + ['modifier_id' => $user->id]);
+        return $this->repository->create($attributes + ['modifier_id' => auth()->user()->id]);
     }
 
-    public function update(array $attributes, int $id, User $user)
+    public function update(array $attributes, int $id)
     {
-        return $this->repository->update($attributes + ['modifier_id' => $user->id], $id);
+        return $this->repository->update($attributes + ['modifier_id' => auth()->user()->id], $id);
     }
 
     public function delete(int $id)
